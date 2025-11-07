@@ -78,11 +78,16 @@ update_system() {
 }
 
 # Install required packages
+#installig shc manually as its not available in debian 13
+cd
+wget http://archive.ubuntu.com/ubuntu/pool/universe/s/shc/shc_4.0.3-1_amd64.deb
+sudo apt install ./shc_4.0.3-1_amd64.deb
+
 install_packages() {
     log_info "Installing packages..."
     apt install -y \
       netfilter-persistent iptables-persistent screen curl jq bzip2 gzip vnstat coreutils rsyslog \
-      zip unzip net-tools nano lsof shc gnupg dos2unix dirmngr bc \
+      zip unzip net-tools nano lsof gnupg dos2unix dirmngr bc \
       stunnel4 nginx dropbear socat xz-utils sshguard squid > /dev/null 2>&1
     if [[ $? -ne 0 ]]; then 
         log_error "Failed to install one or more packages."
